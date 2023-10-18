@@ -35,8 +35,8 @@ export default {
         // console.log("到底了",context.problems)
       }
     }
-    
-    axios.get("/static/problems.txt")
+    axios.get("/maogai/problems.txt") // 生产环境
+    // axios.get("/problems.txt") // 开发环境
     .then((res) => {
       allQuestions = res.data
       context.problems = allQuestions.slice(0,25)

@@ -29,7 +29,9 @@
         <button @click="showAnswer">
             {{ answer ? "Hide Answer" : "Show Answer" }}
         </button>
-        <div class="space"></div>
+        <!-- <div class="space"></div> -->
+        &nbsp;&nbsp;
+        &nbsp;&nbsp;
         <button @click="checkAnswer">
             {{ checking ? "Try Again" : "Check Answer" }}
         </button>
@@ -91,8 +93,8 @@
 
 <style>
     .panel {
-        width: 700px;
-        height: 300px;
+        width: 100%;
+        /* height: 300px; */
         margin: 0 auto;
         border-top: 1px solid black;
         border-left: 1px solid black;
@@ -113,7 +115,7 @@
     }
     .space {
         display: inline-block;
-        width: 351px;
+        width: 20%;
     }
     
 </style>
