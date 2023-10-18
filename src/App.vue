@@ -36,7 +36,7 @@ export default {
       }
     }
     
-    axios.get("/problems.txt")
+    axios.get("/static/problems.txt")
     .then((res) => {
       allQuestions = res.data
       context.problems = allQuestions.slice(0,25)
