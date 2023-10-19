@@ -11,6 +11,7 @@
             v-for="(choice,index) in question.Choice" 
             :key="index"
             :name=" questionBoxName "
+            @click="choose"
             >
             <input 
              :type="type"
@@ -126,6 +127,10 @@
         }
         localStorage.setItem("marks", JSON.stringify(marks))
         console.log(marks)
+    }
+
+    function choose(e) {
+        e.target.children[0].checked = !e.target.children[0].checked
     }
 </script>
 
