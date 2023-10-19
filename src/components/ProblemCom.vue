@@ -1,24 +1,25 @@
 <template>
     <div class="panel">
         <div class="question">
-            &nbsp;{{ num+1 }}.
+            &nbsp;{{ questionNum  }}.
             <br>
             &nbsp;&nbsp;{{ question.Description }}
         </div>
         <hr>
+
         <div class="choices" 
             v-for="(choice,index) in question.Choice" 
             :key="index"
-            :name=" question.Description "
+            :name=" questionBoxName "
             >
             <input 
              :type="type"
-             :name="num"
+             :name="question.Description"
              :value="choice.slice(0,1)"
             >
             &nbsp;&nbsp;{{choice}}
-
         </div>
+
         <br>
         <br>
         <br>
@@ -35,6 +36,11 @@
         <button @click="checkAnswer">
             {{ checking ? "Try Again" : "Check Answer" }}
         </button>
+        &nbsp;&nbsp;
+        &nbsp;&nbsp;
+        <button @click="mark" style="width: 70px;" :class="{'star':star}">
+            Star
+        </button>
         
     </div>
 </template>
@@ -44,20 +50,38 @@
     const props = defineProps({
         question: Object,
         num: Number,
+        // start: Number
     })
+    // console.log(props.start)
     // console.log(props.question.Answer.length)
     let type = props.question.Answer.length > 1 ? "checkbox" : "radio";
     let answer = ref(false);
     let checking = ref(false);
+    if (JSON.parse(localStorage.getItem("marks")) == null) {
+        localStorage.setItem("marks",JSON.stringify([]))
+    }
+
+    
+    let start = localStorage.getItem("start")
+    start = parseInt(start)
+    // console.log(start,start + props.num + 1)
+    
+    let starOrNot = JSON.parse(localStorage.getItem("marks")).includes(props.question.Description)
+    let star = ref(starOrNot);
+
+    let questionNum = props.num + start + 1
+    
+    let questionBoxName = "box" + props.question.Description
+
     function showAnswer() {
         answer.value = !answer.value
     }
     function checkAnswer() {
-        localStorage.removeItem("max",props.num)
+        localStorage.setItem("max",props.num+start)
         checking.value = !checking.value
 
-        var choices = document.getElementsByName(props.num)
-        var choiceBox = document.getElementsByName(props.question.Description)
+        var choices = document.getElementsByName(props.question.Description)
+        var choiceBox = document.getElementsByName(questionBoxName)
         
         if (checking.value) {
             var res = []
@@ -89,6 +113,20 @@
         }
         
     }
+    function mark() {
+        star.value = !star.value
+        let marks = JSON.parse(localStorage.getItem("marks"))
+        if (marks == null) {
+            marks = []
+        }
+        if (star.value) {
+            marks.push(props.question.Description)
+        } else {
+            marks = marks.filter((str) => !(str === props.question.Description))
+        }
+        localStorage.setItem("marks", JSON.stringify(marks))
+        console.log(marks)
+    }
 </script>
 
 <style>
@@ -117,5 +155,7 @@
         display: inline-block;
         width: 20%;
     }
-    
+    .star {
+        background-color: #f6c72c;
+    }
 </style>
