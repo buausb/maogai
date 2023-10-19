@@ -78,7 +78,7 @@
         answer.value = !answer.value
     }
     function checkAnswer() {
-        localStorage.setItem("max",props.num+start)
+        localStorage.setItem("max",questionNum-1)
         checking.value = !checking.value
 
         var choices = document.getElementsByName(props.question.Description)
@@ -130,7 +130,9 @@
     }
 
     function choose(e) {
-        e.target.children[0].checked = !e.target.children[0].checked
+        if (e.target.children[0] != null) {
+            e.target.children[0].checked = !e.target.children[0].checked
+        }
     }
 </script>
 
