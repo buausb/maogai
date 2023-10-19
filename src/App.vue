@@ -57,8 +57,8 @@ export default {
         // console.log(tmpNewContent,start,newStart)
       }
     }
-    // axios.get("/maogai/problems.txt") // 生产环境
-    axios.get("/problems.txt") // 开发环境
+    axios.get("/maogai/problems.txt") // 生产环境
+    // axios.get("/problems.txt") // 开发环境
     .then((res) => {
       allQuestions = res.data
       context.problems = allQuestions.slice(start,start+25)
